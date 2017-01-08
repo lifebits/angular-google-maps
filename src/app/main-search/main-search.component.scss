@@ -1,0 +1,107 @@
+.searchBox-wrapper {
+   position: absolute;
+   left: 10px;
+   top: 10px;
+}
+
+$boxWidth: 410px;
+
+.searchBox {
+   position: relative;
+   box-sizing: border-box;
+   width: $boxWidth;
+   height: 48px;
+   padding: 12px 0 11px;
+   font-size: 16px;
+   background-color: #FFFFFF;
+   border-radius: 2px;
+   box-shadow: 0 8px 6px -6px #777;
+
+   input {
+      position: absolute;
+      left: 12px;
+      width: 284px;
+      height: 24px;
+      line-height: 24px;
+      border: 0;
+      outline:none;
+      font-size: inherit;
+      border-right: 1px solid #dddddd;
+   }
+
+   .control-content-type {
+      position: absolute;
+      right: 10px;
+
+      .button {
+         display: inline-block;
+         vertical-align: middle;
+         width: 24px;
+         height: 24px;
+         line-height: 24px;
+         margin-left: 6px;
+
+         svg {
+            fill: #999999;
+         }
+
+         &.active {
+            svg {
+               fill: #333333;
+            }
+         }
+      }
+   }
+
+   .float-block {
+      position: absolute;
+      right: 124px;
+
+      .button {
+         width: 24px;
+         height: 24px;
+
+         svg {
+            fill: #999999;
+         }
+
+         svg:hover {
+            fill: #4285f4;
+         }
+      }
+   }
+}
+
+.searchResult {
+   position: relative;
+   box-sizing: border-box;
+   margin-top: 1px;
+   width: $boxWidth;
+   background-color: #FFFFFF;
+
+   .itemFound {
+      padding: 6px 0;
+      border-bottom: 1px solid #dddddd;
+      cursor: default;
+
+      &:hover {
+         background-color: #fbfbfb;
+      }
+
+      .inline {
+         display: inline-block;
+         vertical-align: top;
+         height: 24px;
+         line-height: 24px;
+      }
+
+      .itemFound-icon {
+         padding: 0 12px;
+      }
+
+      .itemFound-title {
+         font-size: 14px;
+         text-transform: capitalize;
+      }
+   }
+}

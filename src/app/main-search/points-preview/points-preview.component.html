@@ -1,0 +1,19 @@
+<section *ngIf="options.isOpen" class="points-preview-wrapper">
+    <div class="spacer"></div>
+    <div class="points-preview" [ngClass]="options.type">
+        <ul>
+            <li *ngFor="let point of pointsList">
+                <h3>
+                    {{point.city}}
+                </h3>
+                <div class="note">
+                    <span>Rank: {{point.rank}},</span>
+                    <span>Population: {{point.population | number}}</span>
+                </div>
+                <div class="state">
+                    State: {{point.state}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

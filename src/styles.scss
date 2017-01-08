@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import "stylesheets/base/reset";
+
+html, body {
+   font-family: 'Open Sans', sans-serif;
+   background-color: antiquewhite;
+}
+
+input {
+   font-family: 'Open Sans', sans-serif;
+}
+
+b {
+   font-weight: bold;
+   color: #000000;
+}
