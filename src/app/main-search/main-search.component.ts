@@ -3,7 +3,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import {MapPoint} from '../maps/maps.interface';
-import {SearchOptionsConfig} from  './search.interface';
+import {SearchOptionsConfig} from './search.interface';
 import {MainMapService} from '../maps/main-map.service';
 import {SearchService} from './search.service';
 
@@ -154,6 +154,5 @@ export class MainSearchComponent implements OnInit {
          return (foundState.length != 0) ? stateList.indexOf(foundState[0]) : -1;
       }
    }
-
 
 }
