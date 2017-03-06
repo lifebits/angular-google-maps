@@ -7,6 +7,8 @@ import {MapPoint} from './maps.interface';
 import {MapsService} from './maps.service';
 import {MainMapService} from './main-map.service';
 
+import {ActivatedRoute} from '@angular/router';
+
 @Component({
    selector: 'app-maps',
    templateUrl: './maps.component.html',
@@ -17,10 +19,14 @@ export class MapsComponent implements OnInit {
    constructor(
       private http: Http,
       private mapsService: MapsService,
-      private mainMapService: MainMapService) {
+      private mainMapService: MainMapService,
+      private route: ActivatedRoute) {
    }
 
    ngOnInit() {
+
+      this.route.params
+         .subscribe(params => console.log('MAPS', params));
 
       this.mainMapService.initMap()
          .then(map => this.getMapPoint())
