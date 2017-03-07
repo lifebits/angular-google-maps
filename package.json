@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startAot": "ng serve -aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

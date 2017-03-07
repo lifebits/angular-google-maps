@@ -8,9 +8,12 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AboutComponent implements OnInit {
 
+   public text: string;
+
    constructor(
       private route: ActivatedRoute) {
 
+      this.text = 'About Component works!'
    }
 
    ngOnInit(): void {

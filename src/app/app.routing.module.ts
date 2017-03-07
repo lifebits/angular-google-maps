@@ -9,16 +9,22 @@ import {AboutComponent} from './pages/about/about.component';
 const routes: Routes = [
 
    {
-      path: ':city', component: MapsComponent
+      path: '', component: MapsComponent
    },
    {
+      path: 'pages',
+      loadChildren: './pages/pages.module#PagesModule'
+   },
+   /*{
       path: 'pages',
       children: [
          //{path: '', redirectTo: 'about', pathMatch: 'full'},
          {path: 'help', component: HelpComponent},
          {path: 'about', component: AboutComponent}
       ]
-   }
+   }*/
+
+   //{ path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule' }
 
 ];
 
