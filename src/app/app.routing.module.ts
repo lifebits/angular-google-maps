@@ -10,7 +10,7 @@ const routes: Routes = [
    },
    {
       path: 'pages',
-      loadChildren: './pages/pages.module#PagesModule'
+      loadChildren: './+pages/pages.module#PagesModule'
    },
 
 ];

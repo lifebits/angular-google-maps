@@ -12,7 +12,7 @@ import {MapsService} from './maps/maps.service';
 import {MainMapService} from './maps/main-map.service';
 import {SearchService} from './main-search/search.service';
 
-import {PagesModule} from './pages/pages.module';
+import {PagesModule} from './+pages/pages.module';
 
 import {AppRoutingModule} from './app.routing.module';
 
