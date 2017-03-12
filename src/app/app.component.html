@@ -1,9 +1,12 @@
-<!--<app-maps></app-maps>
-<app-points-preview></app-points-preview>
+<nav style="position: absolute; top: 20px; z-index: 100">
+  <a [routerLink]="['moscow']">Moscow</a>
+  <a [routerLink]="[{ outlets: { page: ['help']}}]">Help</a>
+  <a [routerLink]="[{ outlets: { page: ['about']}}]">About</a>
+</nav>
+
+
+<!--<app-points-preview></app-points-preview>
 <app-main-search></app-main-search>-->
 
-<nav style="padding-bottom: 20px;">
-  <a routerLink="pages/help">Help</a>
-  <a routerLink="pages/about">About</a>
-</nav>
 <router-outlet></router-outlet>
+<router-outlet name="page"></router-outlet>

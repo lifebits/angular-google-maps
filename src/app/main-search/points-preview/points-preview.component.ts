@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {MapPoint} from '../../maps/maps.interface';
+import {MapPoint} from '../../+maps/maps.interface';
 import {SearchService} from '../search.service';
 
 interface pointsPreviewOptionsConfig {

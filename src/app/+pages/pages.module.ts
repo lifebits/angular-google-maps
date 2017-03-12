@@ -8,9 +8,9 @@ import {AboutComponent} from './about/about.component';
 
 
 const routes: Routes = [
-   {path: '', redirectTo: 'about', pathMatch: 'full'},
-   {path: 'help', component: HelpComponent},
-   {path: 'about', component: AboutComponent}
+   //{path: '',  redirectTo: 'help', pathMatch: 'full'},
+   {path: 'help', outlet: 'page', component: HelpComponent},
+   {path: 'about',  outlet: 'page', component: AboutComponent}
 ];
 
 @NgModule({

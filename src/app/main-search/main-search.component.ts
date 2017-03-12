@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import {MapPoint} from '../maps/maps.interface';
+import {MapPoint} from '../+maps/maps.interface';
 import {SearchOptionsConfig} from './search.interface';
-import {MainMapService} from '../maps/main-map.service';
+import {MainMapService} from '../+maps/main-map.service';
 import {SearchService} from './search.service';
 
 const concat = require('lodash.concat');

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
-import {MapPoint} from '../maps/maps.interface';
+import {MapPoint} from '../+maps/maps.interface';
 import {SearchOptionsConfig} from  './search.interface';
 
 

@@ -1,15 +1,31 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, PreloadAllModules, Routes} from '@angular/router';
 
-import {MapsComponent} from './maps/maps.component';
+import {AppComponent} from './app.component';
+import {MainMapsNavigateComponent} from './+maps/main-map-navigate/main-map-navigate.component';
+import {MapPointPreviewComponent} from './+maps/map-point-preview/map-point-preview.component';
 
 const routes: Routes = [
 
+   /*{
+      path: ':city',
+      component: MainMapsNavigateComponent,
+      children: [
+      //   {path: '', component: MainMapsNavigateComponent},
+         {path: ':pointId', component: MapPointPreviewComponent}
+      ]
+   },*/
    {
-      path: '', component: MapsComponent
+      path: '',
+      component: AppComponent
    },
    {
-      path: 'pages',
+      path: ':city',
+      component: MainMapsNavigateComponent,
+      loadChildren: './+maps/maps.module#MapsModule'
+   },
+   {
+      path: ':city',
       loadChildren: './+pages/pages.module#PagesModule'
    },
 
