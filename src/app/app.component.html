@@ -1,7 +1,8 @@
 <nav style="position: absolute; top: 20px; z-index: 100">
-  <a [routerLink]="['moscow']">Moscow</a>
+  <a routerLink="/moscow">Moscow</a>
   <a [routerLink]="[{ outlets: { page: ['help']}}]">Help</a>
   <a [routerLink]="[{ outlets: { page: ['about']}}]">About</a>
+  <a routerLink="/pages">Button</a>
 </nav>
 
 
@@ -10,3 +11,4 @@
 
 <router-outlet></router-outlet>
 <router-outlet name="page"></router-outlet>
+<!--<router-outlet name="profile"></router-outlet>-->

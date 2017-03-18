@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params, Data} from '@angular/router';
 
 @Component({
    selector: 'app-about',
@@ -19,9 +19,13 @@ export class AboutComponent implements OnInit {
    ngOnInit(): void {
       console.log(this.route);
       this.route.params
-         .subscribe(params => console.log('route', params));
+         .subscribe((params: Params) => console.log('params: ', params));
+
+      this.route.data
+         .subscribe((data: Data) => console.log('data: ', data));
+
       this.route.url
-         .subscribe(url => console.log('url', url));
+         .subscribe((url) => console.log('url', url));
    }
 
 }
