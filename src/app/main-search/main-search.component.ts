@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import {MapPoint} from '../+maps/maps.interface';
 import {SearchOptionsConfig} from './search.interface';
-import {MainMapService} from '../+maps/main-map.service';
+import {MainMapService} from '../+maps/main-map/main-map.service';
 import {SearchService} from './search.service';
 
 const concat = require('lodash.concat');

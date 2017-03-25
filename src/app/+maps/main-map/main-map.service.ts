@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {MapsService} from './maps.service';
+import {MapsService} from '../maps.service';
 
 @Injectable()
 export class MainMapService extends MapsService{

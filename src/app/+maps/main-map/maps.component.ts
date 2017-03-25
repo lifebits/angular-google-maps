@@ -3,8 +3,8 @@ import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {MapPoint} from './maps.interface';
-import {MapsService} from './maps.service';
+import {MapPoint} from '../maps.interface';
+import {MapsService} from '../maps.service';
 import {MainMapService} from './main-map.service';
 
 import {ActivatedRoute} from '@angular/router';

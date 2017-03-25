@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MapsService } from './maps.service';
-import { MainMapService } from './main-map.service';
+import { MainMapService } from './main-map/main-map.service';
 
-import { MapsComponent } from './maps.component';
+import { MapsComponent } from './main-map/maps.component';
 import { MainMapsNavigateComponent } from './main-map-navigate/main-map-navigate.component';
 import { MapPointPreviewComponent } from './map-point-preview/map-point-preview.component';
 

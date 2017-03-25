@@ -5,13 +5,13 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 
-import {MapsComponent} from './+maps/maps.component';
+import {MapsComponent} from './+maps/main-map/maps.component';
 
 import {MainSearchComponent} from './main-search/main-search.component';
 import {PointsPreviewComponent} from './main-search/points-preview/points-preview.component';
 
 import {MapsService} from './+maps/maps.service';
-import {MainMapService} from './+maps/main-map.service';
+import {MainMapService} from './+maps/main-map/main-map.service';
 import {SearchService} from './main-search/search.service';
 
 import {MapsModule} from  './+maps/maps.module';
