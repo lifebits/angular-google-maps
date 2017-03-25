@@ -2,13 +2,15 @@
   <a routerLink="/moscow">Moscow</a>
   <a [routerLink]="[{ outlets: { page: ['help']}}]">Help</a>
   <a [routerLink]="[{ outlets: { page: ['about']}}]">About</a>
-  <a routerLink="/pages">Button</a>
+  <a [routerLink]="['/moscow']" [queryParams]="{ metro: true, buildType: 'office' }">Button</a>
 </nav>
 
 
-<!--<app-points-preview></app-points-preview>
-<app-main-search></app-main-search>-->
+<!--<app-points-preview></app-points-preview>-->
+
 
 <router-outlet></router-outlet>
 <router-outlet name="page"></router-outlet>
 <!--<router-outlet name="profile"></router-outlet>-->
+
+<app-main-search></app-main-search>

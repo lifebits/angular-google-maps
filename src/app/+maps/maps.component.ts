@@ -25,8 +25,8 @@ export class MapsComponent implements OnInit {
 
    ngOnInit() {
 
-      //this.route.params
-      //   .subscribe(params => console.log('MAPS', params));
+      this.route.queryParams
+         .subscribe(queryParams => console.log('MAPS', queryParams));
 
       this.mainMapService.initMap()
          .then(map => this.getMapPoint())
