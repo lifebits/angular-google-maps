@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {ActivatedRoute} from  '@angular/router';
 import {MainMapService} from "../main-map/main-map.service";
-import {MapOptionsConfig, MapPoint, Coordinates} from "../maps.interface";
+import {MapOptionsConfig, Coordinates} from "../maps.interface";
 
 
 @Component({
@@ -22,31 +22,33 @@ export class MainMapsNavigateComponent implements OnInit {
       this.route.params
          .subscribe(params => {
             console.log('main-map-navigate: ', params);
-            this.getLocationCoords('chicago')
-               .then(locationCoords => {
-                  let mapOptions: MapOptionsConfig = {center: locationCoords};
-                  return this.mainMap.changeMapOptions(mapOptions);
-               })
+            this.findLocation(params.city)
+               .then(location => this.getMainMapOptions(location))
+               .then(prepareOptions => this.mainMap.changeMapOptions(prepareOptions));
          })
    }
 
-   private getLocationCoords(locationName: string): Promise<Coordinates> {
+   private findLocation(locationName): Promise<any> {
       return this.http.get('./assets/mocks/cities.json')
          .toPromise()
          .then(response => response.json())
          .then(cities => this.updateCitiesList(cities))
          .then(updatedCities => updatedCities.find(p => p._searchIndex === locationName))
-         .then(findLocations => {
-            return {
-               lat: findLocations.latitude,
-               lng: findLocations.longitude
-            };
-         })
+   }
+
+   private getMainMapOptions(location): MapOptionsConfig {
+      let prepareOptions: MapOptionsConfig = {};
+      prepareOptions.center = {
+         lat: location.latitude,
+         lng: location.longitude
+      };
+      prepareOptions.zoom = (location._type === 'location') ? 5 : 10;
+      return prepareOptions;
    }
 
    private updateCitiesList(citiesList) {
       citiesList.forEach(item => {
-         item['_type'] = 'city';
+         item['_type'] = (item.rank == 0) ? 'location' : 'city';
          item['_searchIndex'] = item.city.toLowerCase().replace(/\s/g, '');
       });
       return citiesList;

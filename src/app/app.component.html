@@ -1,8 +1,9 @@
-<nav style="position: absolute; top: 20px; z-index: 100">
-  <a routerLink="/moscow">Moscow</a>
+<nav style="position: absolute; top: 20px; left: 10px; z-index: 10">
+  <a routerLink="/usa">USA</a>
+  <a routerLink="/chicago">Chicago</a>
   <a [routerLink]="[{ outlets: { page: ['help']}}]">Help</a>
   <a [routerLink]="[{ outlets: { page: ['about']}}]">About</a>
-  <a [routerLink]="['/moscow']" [queryParams]="{ metro: true, buildType: 'office' }">Button</a>
+  <a [routerLink]="['/chicago']" [queryParams]="{ metro: true, buildType: 'office' }">Button</a>
 </nav>
 
 
