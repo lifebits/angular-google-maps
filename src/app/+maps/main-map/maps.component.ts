@@ -19,23 +19,20 @@ export class MapsComponent implements OnInit {
    constructor(
       private http: Http,
       private mapsService: MapsService,
-      private mainMapService: MainMapService,
-      private route: ActivatedRoute) {
+      private mainMap: MainMapService) {
    }
 
    ngOnInit() {
 
-      this.route.queryParams
-         .subscribe(queryParams => console.log('MAPS', queryParams));
 
-      this.mainMapService.initMap()
+      this.mainMap.initMap()
          .then(map => this.getMapPoint())
-         .then(placeList => this.mapsService.addMarkers(this.mainMapService.map, placeList))
+         .then(placeList => this.mapsService.addMarkers(this.mainMap.map, placeList))
          .then(markersList => {
-            this.mainMapService.markers = markersList;
-            return this.mapsService.setMarkerCluster(this.mainMapService.map, markersList)
+            this.mainMap.markers = markersList;
+            return this.mapsService.setMarkerCluster(this.mainMap.map, markersList)
          })
-         .then(markerCluster => this.mainMapService.markerClusterer = markerCluster)
+         .then(markerCluster => this.mainMap.markerClusterer = markerCluster);
 
    }
 

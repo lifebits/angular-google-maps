@@ -1,6 +1,11 @@
+export interface Coordinates {
+   lat: number,
+   lng: number
+}
+
 export interface MapOptionsConfig {
-   center: any,
-   zoom: number,
+   center?: Coordinates,
+   zoom?: number,
    scrollwheel?: boolean,
    zoomControl?: boolean,
    scaleControl?: boolean,

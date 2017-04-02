@@ -18,15 +18,13 @@ export class MapsService {
       megaCity: 'map-hotels'
    };
 
-   protected mapOption: MapOptionsConfig = {
+   protected defaultMapsOptions: MapOptionsConfig = {
       center: {lat: 37.328202, lng: -95.864808},
       zoom: 5,
       scrollwheel: true
    };
 
-   constructor() {
-
-   }
+   constructor() {}
 
 
    public addMarkers(map, pointList: MapPoint[]) {

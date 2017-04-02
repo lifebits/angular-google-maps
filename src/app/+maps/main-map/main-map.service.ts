@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
+import {Observable, Subject, Subscription} from "rxjs";
 
 import {MapsService} from '../maps.service';
+import {MapOptionsConfig} from "../maps.interface";
+
 
 @Injectable()
 export class MainMapService extends MapsService{
@@ -9,16 +12,54 @@ export class MainMapService extends MapsService{
    public markers: any[];
    public markerClusterer: any;
 
-   //constructor() { super(); }
+   private mapOptions: MapOptionsConfig = this.defaultMapsOptions;
+   private mapOptionsSource = new Subject<MapOptionsConfig>();
+   public mapOptions$ = this.mapOptionsSource.asObservable();
+
+   private subscription: Subscription;
+
+   constructor() {
+      super();
+
+      console.log('START MapOpts: ', this.mapOptions);
+      this.mapOptions$.subscribe(
+         mapOptions => {
+            console.log('Map Options Changes: ', mapOptions);
+         }
+      );
+   }
+
+   public changeMapOptions(newOptions?: MapOptionsConfig): void {
+      if (newOptions) {
+         this.mapOptions = Object.assign(this.mapOptions, newOptions);
+      }
+      this.mapOptionsSource.next(this.mapOptions);
+   }
+
+   public initMapOptions() {
+      return new Promise(resolve => {
+         this.mapOptions$.first().subscribe(
+            mapOptions => resolve(mapOptions)
+         );
+      })
+   }
 
    public initMap() {
-      return this.loadAPI()
-         .then(google => {
-            this.mapOption.mapTypeControlOptions = {
-               style: google['maps'].MapTypeControlStyle.DEFAULT,
-               position: google['maps'].ControlPosition.TOP_RIGHT
+      console.log('INIT MAP');
+      return Promise.all([
+            this.loadAPI(),
+            this.initMapOptions()
+         ])
+         .then(result => {
+            let mapsApi = result[0]['maps'];
+            let additionalMapOptions =  {
+               mapTypeControlOptions: {
+                  style: mapsApi.MapTypeControlStyle.DEFAULT,
+                  position: mapsApi.ControlPosition.TOP_RIGHT
+               }
             };
-            this.map = new google['maps'].Map(document.getElementById('map'), this.mapOption)
+            this.changeMapOptions(additionalMapOptions);
+            this.map = new mapsApi.Map(document.getElementById('map'), this.mapOptions);
          })
    }
 
@@ -31,11 +72,11 @@ export class MainMapService extends MapsService{
       }
    }
 
-   public hideCurrentMarkers() {
+   public hideCurrentMarkers(): void {
       this.clearMarkersAndClusterer(this.markerClusterer);
    }
 
-   public showCurrentMarkers() {
+   public showCurrentMarkers(): void {
       this.markerClusterer = this.setMarkerCluster(this.map, this.markers);
    }
 
@@ -47,6 +88,10 @@ export class MainMapService extends MapsService{
          this.clearMarkers(this.markers);
       }
       this.markers = [];
+   }
+
+   public moveToLocation(): void {
+
    }
 
 }
