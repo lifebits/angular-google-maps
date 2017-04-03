@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject, Subscription} from "rxjs";
+import {Subject} from "rxjs";
 
 import {MapsService} from '../maps.service';
 import {MapOptionsConfig} from "../maps.interface";
@@ -16,17 +16,17 @@ export class MainMapService extends MapsService{
    private mapOptionsSource = new Subject<MapOptionsConfig>();
    public mapOptions$ = this.mapOptionsSource.asObservable();
 
-   private subscription: Subscription;
+   public mapIsCreated: true | false = false;
 
    constructor() {
       super();
 
-      console.log('START MapOpts: ', this.mapOptions);
-      this.mapOptions$.subscribe(
-         mapOptions => {
-            console.log('Map Options Changes: ', mapOptions);
+      this.mapOptions$.subscribe(mapOptions => {
+         if (this.mapIsCreated) {
+            this.focusToLocation();
          }
-      );
+         console.log('Map Options Changes: ', mapOptions);
+      });
    }
 
    public changeMapOptions(newOptions?: MapOptionsConfig): void {
@@ -36,7 +36,7 @@ export class MainMapService extends MapsService{
       this.mapOptionsSource.next(this.mapOptions);
    }
 
-   public initMapOptions() {
+   public initMapOptions(): Promise<MapOptionsConfig> {
       return new Promise(resolve => {
          this.mapOptions$.first().subscribe(
             mapOptions => resolve(mapOptions)
@@ -60,6 +60,7 @@ export class MainMapService extends MapsService{
             };
             this.changeMapOptions(additionalMapOptions);
             this.map = new mapsApi.Map(document.getElementById('map'), this.mapOptions);
+            this.mapIsCreated = true;
          })
    }
 
@@ -90,8 +91,11 @@ export class MainMapService extends MapsService{
       this.markers = [];
    }
 
-   public moveToLocation(): void {
-
+   public focusToLocation(): void {
+      if (this.map.zoom != this.mapOptions.zoom) {
+         this.map.setZoom(this.mapOptions.zoom);
+      }
+      this.map.panTo(this.mapOptions.center);
    }
 
 }
