@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MapOptionsConfig, MapPoint} from './maps.interface';
+import {GoogleAPI, MapOptionsConfig, MapPoint} from './maps.interface';
 
 const MarkerClusterer = require('node-js-marker-clusterer');
 
@@ -10,6 +10,8 @@ const API_URL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&language
 
 @Injectable()
 export class MapsService {
+
+   public googleAPI: GoogleAPI;
 
    private markersIconList = {
       smallCity: 'map-residential-places',
@@ -27,19 +29,31 @@ export class MapsService {
    constructor() {}
 
 
-   public addMarkers(map, pointList: MapPoint[]) {
+   public addMarkers(map, pointList: MapPoint[], markerClickEvent?: Function) {
       let markers: any[] = [];
       pointList.forEach(place => {
-         markers.push(
-            new window['google'].maps.Marker({
-               position: {lat: place.latitude, lng: place.longitude},
-               map: map,
-               title: place.city,
-               icon: `assets/icon/maps/${this.getMarkerIcon(place.population)}.png`,
-               animation: window['google']['maps'].Animation.DROP
-            })
-         );
+         let marker = new this.googleAPI.maps.Marker({
+            position: {lat: place.latitude, lng: place.longitude},
+            map: map,
+            title: place.city,
+            icon: `assets/icon/maps/${this.getMarkerIcon(place.population)}.png`,
+            //animation: this.googleAPI.maps.Animation.DROP,
+            item: {
+               location: place.city.toLowerCase().replace(/\s/g, ''),
+               state: place.state,
+               rank: place.rank
+            }
+         });
+
+         if (markerClickEvent) {
+            marker.addListener('click', function() {
+               markerClickEvent(this);
+            });
+         }
+
+         markers.push(marker);
       });
+
       return markers;
    }
 
@@ -73,7 +87,8 @@ export class MapsService {
       return new Promise(resolve => {
          window[API_INIT] = () => {
             console.log('google maps API loaded');
-            resolve(window['google']);
+            this.googleAPI = window['google'];
+            resolve(this.googleAPI);
             delete window[API_INIT];
          };
          this.loadScript();
@@ -89,7 +104,7 @@ export class MapsService {
       document.getElementsByTagName('head')[0].appendChild(node);
    }
 
-   private getMarkerIcon(population: string): string {
+   protected getMarkerIcon(population: string): string {
       let _population: number = +population;
 
       if (_population <= 80000) {
@@ -107,6 +122,6 @@ export class MapsService {
       if (_population > 800000) {
          return this.markersIconList.megaCity
       }
-
    }
+
 }

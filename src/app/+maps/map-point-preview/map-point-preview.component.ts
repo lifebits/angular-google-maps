@@ -15,10 +15,11 @@ export class MapPointPreviewComponent implements OnInit {
    }
 
    ngOnInit() {
+      console.log('MapPointPreviewComponent INIT');
       this.route.params
          .subscribe(params => {
-            this.pointId = params['pointId'];
-            console.log('map-point-preview', params)
+            this.pointId = params.pointId;
+            //console.log('map-point-preview', params)
          })
    }
 

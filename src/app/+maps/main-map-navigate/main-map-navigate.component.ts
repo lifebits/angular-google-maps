@@ -22,6 +22,7 @@ export class MainMapsNavigateComponent implements OnInit {
       this.route.params
          .subscribe(params => {
             console.log('main-map-navigate: ', params);
+            this.mainMap.currentLocation = params.city;
             this.findLocation(params.city)
                .then(location => this.getMainMapOptions(location))
                .then(prepareOptions => this.mainMap.changeMapOptions(prepareOptions));

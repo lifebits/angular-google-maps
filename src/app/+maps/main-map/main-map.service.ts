@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Subject} from "rxjs";
 
 import {MapsService} from '../maps.service';
@@ -18,14 +19,19 @@ export class MainMapService extends MapsService{
 
    public mapIsCreated: true | false = false;
 
-   constructor() {
+   public currentLocation: String; // if the points are returned by location
+
+   constructor(
+      private ngZone: NgZone,
+      private router: Router,
+      private route: ActivatedRoute) {
       super();
 
       this.mapOptions$.subscribe(mapOptions => {
          if (this.mapIsCreated) {
             this.focusToLocation();
          }
-         console.log('Map Options Changes: ', mapOptions);
+         //console.log('Map Options Changes: ', mapOptions);
       });
    }
 
@@ -45,7 +51,6 @@ export class MainMapService extends MapsService{
    }
 
    public initMap() {
-      console.log('INIT MAP');
       return Promise.all([
             this.loadAPI(),
             this.initMapOptions()
@@ -66,7 +71,7 @@ export class MainMapService extends MapsService{
 
    public updateMarkers(newPoint): void {
       this.resetMap();
-      this.markers = this.addMarkers(this.map, newPoint);
+      this.markers = this.addMarkers(this.map, newPoint, this.getMarkerInfo.bind(this));
 
       if (this.markers.length > 1) {
          this.markerClusterer = this.setMarkerCluster(this.map, this.markers);
@@ -96,6 +101,18 @@ export class MainMapService extends MapsService{
          this.map.setZoom(this.mapOptions.zoom);
       }
       this.map.panTo(this.mapOptions.center);
+   }
+
+   public mapAddMarkers(pointList) {
+      this.markers = this.addMarkers(this.map, pointList, this.getMarkerInfo.bind(this));
+      return this.markers;
+   }
+
+   public getMarkerInfo(marker) {
+      this.ngZone.run(() => {
+         this.router.navigate([marker.item.location, 'place', marker.item.rank], { relativeTo: this.route });
+      });
+
    }
 
 }
