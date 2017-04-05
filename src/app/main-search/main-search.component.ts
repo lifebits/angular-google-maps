@@ -3,16 +3,16 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import {MapPoint} from '../+maps/maps.interface';
-import {SearchOptionsConfig} from './search.interface';
 import {MainMapService} from '../+maps/main-map/main-map.service';
+import {SearchOptionsConfig} from './search.interface';
 import {SearchService} from './search.service';
 
 const concat = require('lodash.concat');
 
 @Component({
    selector: 'app-main-search',
-   templateUrl: './main-search.component.html',
-   styleUrls: ['./main-search.component.scss']
+   templateUrl: 'main-search.component.html',
+   styleUrls: ['main-search.component.scss']
 })
 export class MainSearchComponent implements OnInit {
 
@@ -21,8 +21,9 @@ export class MainSearchComponent implements OnInit {
 
    constructor(
       private http: Http,
-      public searchService: SearchService,
-      private mainMapService: MainMapService) { }
+      private mainMap: MainMapService,
+      public searchService: SearchService) {
+   }
 
    ngOnInit() {
 
@@ -47,7 +48,7 @@ export class MainSearchComponent implements OnInit {
    public resetSearch(): void {
       this.query = '';
       this.quickSearchResult = undefined;
-      this.mainMapService.resetMap();
+      this.mainMap.resetMap();
       this.searchService.resetSearchResult();
    }
 
@@ -65,12 +66,12 @@ export class MainSearchComponent implements OnInit {
       }
 
       this.searchService.setSearchResult(itemsFound);
-      this.mainMapService.updateMarkers(itemsFound);
+      this.mainMap.updateMarkers(itemsFound);
    }
 
    public setMarkersOnMap(items: MapPoint[]): void {
       this.quickSearchResult = [];
-      this.mainMapService.updateMarkers(items);
+      this.mainMap.updateMarkers(items);
    }
 
    public getIconPlaceUrl(placeType: string): string {
@@ -83,7 +84,7 @@ export class MainSearchComponent implements OnInit {
 
    public toggleMapsPointsDisplay() {
       let isActive = this.searchService.options.mapsPointsDisplay;
-      (isActive) ? this.mainMapService.hideCurrentMarkers() : this.mainMapService.showCurrentMarkers();
+      (isActive) ? this.mainMap.hideCurrentMarkers() : this.mainMap.showCurrentMarkers();
       this.searchService.changeSearchOptions({mapsPointsDisplay: !isActive});
    }
 

@@ -11,8 +11,8 @@ interface pointsPreviewOptionsConfig {
 
 @Component({
    selector: 'app-points-preview',
-   templateUrl: './points-preview.component.html',
-   styleUrls: ['./points-preview.component.scss']
+   templateUrl: './search-result.component.html',
+   styleUrls: ['./search-result.component.scss']
 })
 export class PointsPreviewComponent implements OnInit {
 
